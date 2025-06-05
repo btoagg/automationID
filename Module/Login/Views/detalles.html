@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalles del Producto</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-5">
+    <a href="index.html" class="btn btn-link mb-3">&larr; Volver</a>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title" id="product-title">Detalles del producto</h2>
+        <p class="card-text" id="product-desc">Aquí se mostrarán los detalles del producto seleccionado.</p>
+        <a href="wishlist.html" class="btn btn-outline-secondary">Ir a la lista de deseos</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Mostrar detalles según el producto en la URL
+    const params = new URLSearchParams(window.location.search);
+    const producto = params.get('producto');
+    if(producto === 'iphone16') {
+      document.getElementById('product-title').textContent = 'iPhone 16';
+      document.getElementById('product-desc').textContent = 'El último modelo de iPhone con tecnología avanzada.';
+    } else if(producto === 'samsungs23') {
+      document.getElementById('product-title').textContent = 'Samsung S23';
+      document.getElementById('product-desc').textContent = 'Smartphone de alta gama con excelente cámara y batería.';
+    }
+  </script>
+</body>
+</html>

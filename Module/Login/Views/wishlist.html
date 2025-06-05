@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de deseos</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <link rel="shortcut icon" href="../images/pricetracker logo.ico" />
+
+  <style>
+    /* Puedes agregar aquí estilos adicionales si lo necesitas */
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">PriceTracker</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="wishlist.html">Lista de Deseos</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorias
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Productos de limpieza</a></li>
+              <li><a class="dropdown-item" href="#">Tecnologia</a></li>
+              <li><a class="dropdown-item" href="#">Ropa y moda</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Otros</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container my-5">
+    <h2 class="mb-4">Lista de deseos</h2>
+    <div id="wishlistCards" class="d-flex flex-wrap gap-4 justify-content-center"></div>
+    <div id="emptyMsg" class="text-center text-muted mt-5" style="display:none;">No hay productos en la lista de deseos.</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const container = document.getElementById('wishlistCards');
+    const emptyMsg = document.getElementById('emptyMsg');
+    if (wishlist.length === 0) {
+      emptyMsg.style.display = 'block';
+    } else {
+      wishlist.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = 'card product-card d-flex flex-column justify-content-between';
+        card.style.width = '18rem';
+        card.innerHTML = `
+          <img src="${prod.img}" class="card-img-top" alt="${prod.title}">
+          <div class="card-body">
+            <h5 class="card-title">${prod.title}</h5>
+            <p class="card-text">${prod.desc}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            ${prod.prices.map(price => `<li class="list-group-item">${price}</li>`).join('')}
+          </ul>
+          <div class="card-body d-flex justify-content-between">
+            <button class="btn btn-outline-success btn-sm" onclick="showDetails('${prod.title}', '${prod.desc}', '${prod.img}', ${JSON.stringify(prod.prices)})">
+              Ver detalles
+            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="removeFromWishlist('${prod.title}')">
+              Quitar de la lista
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Modal para detalles (reutiliza el de index.html)
+    function showDetails(title, desc, img, prices) {
+      let modal = document.getElementById('detailsModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'detailsModal';
+        modal.tabIndex = -1;
+        modal.setAttribute('aria-labelledby', 'detailsModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML = `
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <img id="detailsImage" src="" alt="" class="img-fluid mb-3" />
+                <p id="detailsDesc"></p>
+                <ul id="detailsPrices"></ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      document.getElementById('detailsModalLabel').textContent = title;
+      document.getElementById('detailsDesc').textContent = desc;
+      document.getElementById('detailsImage').src = img;
+      document.getElementById('detailsImage').alt = title;
+      const ul = document.getElementById('detailsPrices');
+      ul.innerHTML = '';
+      prices.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = p;
+        ul.appendChild(li);
+      });
+      const bsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+      bsModal.show();
+    }
+
+    // Quitar producto de la wishlist
+    function removeFromWishlist(title) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      wishlist = wishlist.filter(p => p.title !== title);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      location.reload();
+    }
+  </script>
+</body>
+</html>
