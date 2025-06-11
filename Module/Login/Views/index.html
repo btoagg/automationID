@@ -6,6 +6,8 @@
   <title>PriceTracker</title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link rel="shortcut icon" href="../images/pricetracker logo.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   <style>
     .product-card {
       transition: box-shadow 0.3s, transform 0.3s;
@@ -43,11 +45,11 @@
             Categorias
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Productos de limpieza</a></li>
-            <li><a class="dropdown-item" href="#">Tecnologia</a></li>
-            <li><a class="dropdown-item" href="#">Ropa y moda</a></li>
+            <li><a class="dropdown-item" href="productos_limpieza.html">Productos de limpieza</a></li>
+            <li><a class="dropdown-item" href="tecnologia.html">Tecnologia</a></li>
+            <li><a class="dropdown-item" href="ropa_y_moda.html">Ropa y moda</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Otros</a></li>
+            <li><a class="dropdown-item" href="otros.html">Otros</a></li>
           </ul>
         </li>
 
@@ -56,6 +58,16 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
+      <div class="dropdown ms-3">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle"></i> Usuario
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton">
+          <li><a class="dropdown-item" href="#">Gestionar datos personales</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="Login.html">Logout</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
