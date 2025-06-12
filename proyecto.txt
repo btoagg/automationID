@@ -1,3 +1,55 @@
+Login.html
+***********************
+<!doctype html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/pricetracker logo.ico" />
+
+    <title>PriceTracker</title>
+</head>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      max-width: 400px;
+      margin-top: 100px;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 0.5rem 1rem rgba(0.1,0.1,0.1,0.1);
+    }
+  </style>
+<body>
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="login-container">
+      <h2 class="text-center mb-4">Iniciar Sesión</h2>
+<form>
+        <div class="mb-3">
+          <label for="email" class="form-label">Usuario</label>
+          <input type="email" class="form-control" id="email" placeholder="Ingresa tu usuario" required>
+        </div>
+ <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+        </div>
+
+  <a type="button" class="btn btn-outline-success" href="index.html" >Login</a>
+</form>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" media="all" href="../css/style.css" />
+</body>
+</html>
+***********************
+index.html
+***********************
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -209,3 +261,4 @@
 
 </body>
 </html>
+****************************
